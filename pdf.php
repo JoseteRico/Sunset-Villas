@@ -16,11 +16,11 @@
 <!-- bootstrap -->
 <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
 <!-- confirmed bookings  -->
-<link rel="stylesheet" href="css/confirmed.css" />
+<link rel="stylesheet" href="css/pdf.css" />
 
 </head>
 <!--<body  onload="window.print()">-->
-<body>
+<body onload="window.print()">
 <table border="1" align="center">
 
 <?php
@@ -40,88 +40,74 @@
         		$checkin= $row['CheckIN'];
         		$checkout= $row['CheckOUT'];
         		$message= $row['Message'];
+        		$status= $row['confirmed'];
 
         		/*echo "<tr><td colspan=2><img src=images/fondo_3.png></td></tr><tr id=".$id." name=".$id."><td>Booking ID</td><td>".$id."</td></tr><tr><td>Customer Name</td><td name=".$name.">".$name."</td></tr><tr><td>Customer Email</td><td name=".$email.">".$email."</td></tr><tr><td>Customer Phone</td><td name=".$phone.">".$phone."</td></tr><tr><td>Nº Rooms </td><td name=".$rooms.">".$rooms."</td></tr><tr><td>Nº Adults </td><td name=".$adults.">".$adults."</td></tr><tr><td>Check IN </td><td name=".$checkin.">".$checkin."</td></tr><tr><td>Check OUT </td><td name=".$checkout.">".$checkout."</td></tr><tr><td>Customer's Message</td><td name=".$message.">".$message."</td></tr>";*/
         	}	    	
 ?>
 </table>
-	<div class="container">
-		<div class="col-md-12">
-			<div class="col-md-offset-5">
-				<img src="images/fondo_3.png">
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-offset-2">
-				<hr style="border: 3px solid">
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2  medio" >
-				<h4>Customer's Name</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2 medio" >
-				<h4><?php echo $name; ?></h4>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2" >
-				<h4 >Customer's Email</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2" >
-				<h4><?php echo $email; ?></h4>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2 medio" >
-				<h4>Customer's Phone</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2 medio" >
-				<h4><?php echo $phone; ?></h4>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2" >
-				<h4>Nº of Rooms</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2" >
-				<h4><?php echo $rooms; ?></h4>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2 medio" >
-				<h4>Nº of Adults</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2 medio" >
-				<h4><?php echo $adults; ?></h4>
-			</div>
-			<hr style="border 1px solid">
-		</div>
-
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2" >
-				<h4>Check IN</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2" >
-				<h4><?php echo $checkin; ?></h4>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2 medio" >
-				<h4>Check OUT</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2 medio" >
-				<h4><?php echo $checkout; ?></h4>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-4 col-md-offset-2" >
-				<h4>Message</h4>
-			</div>
-			<div class="col-md-4 col-md-offset-2" >
-				<h4><?php echo $message; ?> </h4>
-			</div>
-		</div>
-	</div>
+    <header class="clearfix">
+      <div id="logo">
+        <img src="images/fondo_3.png">
+      </div>
+      <h1>INVOICE BOOKING ID: <?php echo $id ?></h1>
+      <div id="company" class="clearfix">
+        <div>Company Name</div>
+        <div>Sunset Villas<br /> Turkey</div>
+        <div>(602) 519-0450</div>
+        <div><a href="mailto:jrico@jrico.es">Company mail</a></div>
+      </div>
+      <div id="project">
+        <div><span>Client name</span> <?php echo $name ?></div>
+        <div><span>Phone</span> <?php echo $phone ?></div>
+        <?php 
+        	if ($status='false'){
+        		echo "<div><span>Booking Status</span> Pending </div>";
+        	}
+        	else{
+        		echo "<div><span>Booking Status</span> Confirmed </div>";
+        	}
+        ?>       
+        <div><span>Email</span> <a href="mailto:john@example.com"><?php echo $email ?> </a></div>
+      </div>
+    </header>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th class="service">SERVICE</th>
+            <th class="desc">DESCRIPTION</th>
+            <th>QTY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="service">Nº Rooms </td>
+            <td class="desc">Number of rooms</td>
+            <td class="qty"><?php echo $rooms ?> </td>
+          </tr>
+          <tr>
+            <td class="service">Nº of Adults </td>
+            <td class="desc">Number of Adults  </td>
+            <td class="qty"><?php echo $adults ?></td>
+          </tr>
+          <tr>
+            <td class="service">Check IN date </td>
+            <td class="desc">Date of the first CHECK IN</td>            
+            <td class="qty"><?php echo $checkin ?></td>           
+          </tr>
+          <tr>
+            <td class="service">Check OUT date</td>
+            <td class="desc">Date of the CHECK OUT date</td>            
+            <td class="qty"><?php echo $checkout ?></td>            
+          </tr>
+        </tbody>
+      </table>
+      <div id="notices">
+        <div>NOTICE:</div>
+        <div class="notice">Final price will be sent by E-mail.</div>
+      </div>
+    </main>
+  </body>
 </body>
 </html>

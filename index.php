@@ -6,8 +6,8 @@
     <div class="welcome-message">
         <div class="wrap-info">
             <div class="information">
-                <h1  class="animated fadeInDown">Sunset Villas Resort</h1>
-                <p class="animated fadeInUp"><img src="images/logo_banner.png"></p>
+                <h1  class="animated fadeInDown" style="color:#717171;">Sunset Villas Resort</h1>
+                <!--<p class="animated fadeInUp"><img src="images/logo_banner.png"></p>-->
             </div>
             <a href="#information" class="arrow-nav scroll wowload fadeInDownBig"><i class="fa fa-angle-down"></i></a>
         </div>
@@ -88,7 +88,7 @@
         <div class="form-group">
             <textarea class="form-control"  placeholder="Message" rows="4" name="message"></textarea>
         </div>
-        <button class="btn btn-default" type="submit" value="text 1">Submit</button>
+        <button class="btn btn-default" type="submit" value="Book">Submit</button>
     </form>
 </div>
 </div>

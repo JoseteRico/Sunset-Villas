@@ -64,7 +64,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php"><img src="images/fondo_7.png"  alt="Sunset Villas Logo" class="logo"></a>
+      <a class="navbar-brand" href="index.php"><img src="images/fondo_7.png"  alt="Sunset Villas Logo" class="logo img-responsive"></a>
     </div>
 
 

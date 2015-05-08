@@ -1,3 +1,16 @@
+<?php
+session_start();
+if($_SESSION['user']==''){
+ header("Location:manage.php");
+}else{
+ $dbh=new PDO('mysql:dbname=sunset;host=127.0.0.1', 'root', '');
+ $sql=$dbh->prepare("SELECT * FROM users WHERE id=?");
+ $sql->execute(array($_SESSION['user']));
+ while($r=$sql->fetch()){
+  echo "<center><h2>Hello, ".$r['username']."</h2></center>";
+ }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +33,6 @@
 <link rel="stylesheet" href="css/confirmed.css" />
 
 
-
 </head>
 <?php
 	
@@ -30,9 +42,13 @@
 	
 
 ?>
+<form action="logout.php" align="center">
+<input type="submit" value="LOG OUT"class="btn"> </input>
+</form>
+<hr style="border:3px solid">
 <form method="get" action="confirmBooking.php">
 <table class="order-table table" name="tabla">
-<h1> Pendients Bookings </h1>
+<h1> Pending Bookings </h1>
 	<div class="col-md-3">
 	<br>
 		<input type="text" class="light-table-filter" data-table="order-table" placeholder="Filter"><hr>
@@ -68,7 +84,7 @@
         		$checkout= $row['CheckOUT'];
         		$message= $row['Message'];
 
-        		echo "<tr id=".$id." name=".$id."><td>".$id. '<a href=pdf.php?id='.$id.'><img src=images/pdf.png></a>'."</td><td name=".$name.">".$name."</td><td name=".$email.">".$email."</td><td name=".$phone.">".$phone."</td><td name=".$rooms.">".$rooms."</td><td name=".$adults.">".$adults."</td><td name=".$checkin.">".$checkin."</td><td name=".$checkout.">".$checkout."</td><td name=".$message.">".$message."</td><td>".'<img src=images/delete.png>'.'<a href=mailto:'.$email.'>'.'<img src=images/email.gif></a>'."</td><td>".'<a href=confirmBooking.php?id='.$id.'>CONFIRM BOOKING</a>'."</td></tr>";
+        		echo "<tr id=".$id." name=".$id."><td>".$id. '<a href=pdf.php?id='.$id.'><img src=images/pdf.png></a>'."</td><td name=".$name.">".$name."</td><td name=".$email.">".$email."</td><td name=".$phone.">".$phone."</td><td name=".$rooms.">".$rooms."</td><td name=".$adults.">".$adults."</td><td name=".$checkin.">".$checkin."</td><td name=".$checkout.">".$checkout."</td><td name=".$message.">".$message."</td><td>".'<a  onclick="return checkDelete();" href=deleteBooking.php?id='.$id.'><img src=images/delete.png alt="Delete Booking"></a>'.'<a href=mailto:'.$email.'>'.'<img src=images/email.gif alt="Send email"></a>'."</td><td>".'<a href=confirmBooking.php?id='.$id.'>CONFIRM BOOKING</a>'."</td></tr>";
 
         		# code...
         	}
@@ -114,7 +130,7 @@
         		$checkout= $row['CheckOUT'];
         		$message= $row['Message'];
 
-        		echo "<tr class=confirmed id=".$id." name=".$id."><td>".$id. '<img src=images/pdf.png>'."</td><td name=".$name.">".$name."</td><td name=".$email.">".$email."</td><td name=".$phone.">".$phone."</td><td name=".$rooms.">".$rooms."</td><td name=".$adults.">".$adults."</td><td name=".$checkin.">".$checkin."</td><td name=".$checkout.">".$checkout."</td><td name=".$message.">".$message."</td><td>".'<img src=images/delete.png>'.'<a href=mailto:'.$email.'>'.'<img src=images/email.gif></a>'."</td><td>".'<a href=unconfirmBooking.php?id='.$id.'>UNCONFIRM BOOKING</a>'."</td></tr>";
+        		echo "<tr class=confirmed id=".$id." name=".$id."><td>".$id. '<a href=pdf.php?id='.$id.'><img src=images/pdf.png></a>'."</td><td name=".$name.">".$name."</td><td name=".$email.">".$email."</td><td name=".$phone.">".$phone."</td><td name=".$rooms.">".$rooms."</td><td name=".$adults.">".$adults."</td><td name=".$checkin.">".$checkin."</td><td name=".$checkout.">".$checkout."</td><td name=".$message.">".$message."</td><td>".'<a onclick="return checkDelete();" href=deleteBooking.php?id='.$id.'> <img src=images/delete.png alt="Delete Booking"></a>'.'<a href=mailto:'.$email.'>'.'<img src=images/email.gif alt="Send email"></a>'."</td><td>".'<a href=unconfirmBooking.php?id='.$id.'>UNCONFIRM BOOKING</a>'."</td></tr>";
 
         		# code...
         	}
@@ -123,11 +139,14 @@
 </table>
 
 <!-- SCRIPT ZONE  -->
-<script language="javascript" type="text/javascript">
-function confirm(elem){
-	tabla.elem.style.backgroundColor="green";
+
+<script language="JavaScript" type="text/javascript">
+function checkDelete(){
+    return confirm('Delete this booking?');
 }
 </script>
+
+
 <script language="javascript" type="text/javascript">
 (function(document) {
 	'use strict';
